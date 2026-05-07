@@ -33,10 +33,16 @@ jobs:
     - name: Install backend dependencies
       run: |
         pip install -r backend/requirements.txt
-        pip install ruff
+        pip install ruff pycodestyle
 
     - name: Lint backend with ruff
       run: ruff check backend/
+
+    - name: Check Python formatting with ruff
+      run: ruff format --check backend/
+
+    - name: Check Python style with pycodestyle
+      run: pycodestyle backend/
 
     - name: Wait for PostgreSQL
       run: |
@@ -114,5 +120,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_CHAT_ID }}
         token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         message: |
-          ✅ Kittygram workflow completed successfully!
-          Commit: ${{ github.sha }}
+          ✅ *Kittygram CI/CD finished successfully!*
+          👤 *Author:* ${{ github.actor }}
+          💬 *Commit message:* ${{ github.event.commits[0].message }}
+          🔗 *Commit link:* https://github.com/${{ github.repository }}/commit/${{ github.sha }}
