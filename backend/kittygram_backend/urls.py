@@ -13,8 +13,13 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
     path("api/", include("djoser.urls")),  # Работа с пользователями
-    path("api/", include("djoser.urls.authtoken")),  # Работа с токенами
+    path(
+        "api/",
+        include("djoser.urls.authtoken"),
+    ),  # Работа с токенами
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )
