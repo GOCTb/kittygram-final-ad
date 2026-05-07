@@ -16,12 +16,11 @@ jobs:
           POSTGRES_DB: test_db
           POSTGRES_USER: test_user
           POSTGRES_PASSWORD: test_pass
-        # Проброс портов не обязателен, сервис доступен по имени "postgres"
+          POSTGRES_HOST_AUTH_METHOD: trust
         ports:
           - 5432:5432
-        # Проверка готовности: pg_isready с нашими параметрами
         options: >-
-          --health-cmd "pg_isready -U test_user -d test_db"
+          --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -47,13 +46,6 @@ jobs:
     - name: Lint backend with ruff
       run: ruff check backend/
 
-    - name: Wait for PostgreSQL to be ready
-      run: |
-        until pg_isready -h postgres -U test_user -d test_db; do
-          echo "Waiting for postgres..."
-          sleep 2
-        done
-
     - name: Run backend tests
       env:
         DJANGO_SECRET_KEY: test-secret-key
@@ -61,7 +53,7 @@ jobs:
         POSTGRES_DB: test_db
         POSTGRES_USER: test_user
         POSTGRES_PASSWORD: test_pass
-        DB_HOST: postgres       # Имя сервиса
+        DB_HOST: postgres
         DB_PORT: 5432
       run: |
         cd backend
