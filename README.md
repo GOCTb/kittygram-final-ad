@@ -24,7 +24,7 @@ Kittygram — учебный проект, представляющий собо
 
 ### 1. Клонировать репозиторий
 
-```bash
+
 git clone https://github.com/GOCTb/kittygram-final-ad.git
 cd kittygram-final-ad
 
