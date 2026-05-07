@@ -1,4 +1,4 @@
 repo_owner: GOCTb
-kittygram_domain: https://kittygram.goctb.ru
-taski_domain: https://taski.goctb.ru
+kittygram_domain: https://localhost
+taski_domain: https://localhost
 dockerhub_username: goctb
